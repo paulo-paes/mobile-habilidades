@@ -28,7 +28,12 @@ export default function Login({navigation}) {
                         style={styles.linkCriarConta}
                         onPress={() => navigation.navigate('Cadastro')}
                     >Criar Conta</Text>
-                    <Text style={styles.linkCriarConta}>Esqueci minha senha</Text>
+                    <Text 
+                        style={styles.linkCriarConta}
+                        onPress={() => navigation.navigate("EsqueciSenha")}
+                    >
+                        Esqueci minha senha
+                    </Text>
                 </View>
             </View>
         </View>
