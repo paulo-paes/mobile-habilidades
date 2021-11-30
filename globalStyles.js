@@ -3,6 +3,19 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     preencher: {
         flex: 1
+    },
+    input: {
+        height: 40,
+        width: '80%',
+        margin: 12,
+        borderWidth: 1,
+        padding: 10
+    },
+    inputLabel: {
+        fontSize: 16
+    },
+    link: {
+        color: '#0000EE'
     }
 })
 

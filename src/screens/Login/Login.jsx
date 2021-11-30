@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
 import globalStyles from '../../../globalStyles'
+import Botao from '../../components/Botao/Botao'
 import styles from './styles'
 
 export default function Login({navigation}) {
@@ -21,9 +22,7 @@ export default function Login({navigation}) {
                     secureTextEntry={true}
                     
                 />
-                <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>Entrar</Text>
-                </TouchableOpacity>
+                <Botao text='Entrar'/>
                 <View style={styles.links}>
                     <Text 
                         style={styles.linkCriarConta}
