@@ -1,0 +1,53 @@
+import React from 'react'
+import { StyleSheet } from "react-native";
+import { cores } from '../../../globalStyles';
+
+export default StyleSheet.create({
+    login: {
+        flex: 1,
+        marginBottom: '30%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    loginText: {
+        fontSize: 24,
+        textAlign: 'center',
+        marginBottom: 10
+    },
+    loginInput: {
+        height: 40,
+        width: '80%',
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+    },
+    loginInputLabel: {
+        fontSize: 16,
+        alignSelf: 'auto',
+        marginRight: 260
+    },
+    loginButton: {
+        width: '50%',
+        height: 35,
+        padding: 'auto',
+        backgroundColor: cores.azulMedio,
+        borderRadius: 3
+    },
+    loginButtonText: {
+        textAlign: 'center',
+        paddingVertical: 5,
+        fontSize: 18,
+        color: 'white'
+    },
+    links: {
+        flexDirection: 'row',
+        width: '80%',
+        justifyContent: 'space-around',
+        marginTop: 10
+    },
+    linkCriarConta: {
+        color: cores.azulLink
+        
+    },
+    linkEsqueciSenha: {}
+})
