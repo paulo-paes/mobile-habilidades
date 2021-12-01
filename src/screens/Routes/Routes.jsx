@@ -6,6 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../Login/Login';
 import Cadastro from '../Cadastro/Cadastro';
 import EsqueciSenha from '../EsqueciSenha/EsqueciSenha';
+import ListaHabilidades from '../ListaHabilidades/ListaHabilidades';
+import VinculaHabilidade from '../VinculaHabilidade/VinculaHabilidade';
+import CadastrarHabilidade from '../CadastrarHabilidade/CadastrarHabilidade';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,13 +19,32 @@ export default function Routes() {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{ title: 'Login' }}
+          options={{ title: 'Login', headerShown: false }}
         />
-        <Stack.Screen name="Cadastro" component={Cadastro} />
+        <Stack.Screen 
+          name="Cadastro" 
+          component={Cadastro} 
+          options={{headerShown: false}}
+        />
         <Stack.Screen 
           name="EsqueciSenha" 
           component={EsqueciSenha} 
-          options={{title: "Esqueci minha senha"}}
+          options={{title: "Esqueci minha senha", headerShown: false}}
+        />
+        <Stack.Screen 
+          name="ListaHabilidades" 
+          component={ListaHabilidades} 
+          options={{title: "Habilidades", headerShown: false}}
+        />
+        <Stack.Screen 
+          name="VinculaHabilidade" 
+          component={VinculaHabilidade} 
+          options={{title: "Vincula Habilidade", headerShown: false}}
+        />
+        <Stack.Screen 
+          name="CadastrarHabilidade" 
+          component={CadastrarHabilidade} 
+          options={{title: "Cadastrar Habilidade", headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

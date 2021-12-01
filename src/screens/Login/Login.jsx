@@ -22,7 +22,7 @@ export default function Login({navigation}) {
                     secureTextEntry={true}
                     
                 />
-                <Botao text='Entrar'/>
+                <Botao text='Entrar' acao={() => navigation.navigate('CadastrarHabilidade')}/>
                 <View style={styles.links}>
                     <Text 
                         style={styles.linkCriarConta}
