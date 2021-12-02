@@ -29,6 +29,7 @@ export default function CadastrarHabilidade() {
 }
 
 const styles = StyleSheet.create({
+
     viewInput: {
         marginTop: 10,
         width: '100%',

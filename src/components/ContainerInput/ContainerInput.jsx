@@ -4,7 +4,7 @@ import globalStyles, { cores } from '../../../globalStyles'
 
 export default function ContainerInput({children, background = false }) {
     return (
-        <View style={[globalStyles.preencher, background && styles.corFundo]}>
+        <View style={[globalStyles.preencher, background ? styles.corFundoAzul : styles.corFundoBranco]}>
             <View style={styles.containerInput}>
                 {children}
             </View>
@@ -23,7 +23,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         paddingVertical: 30
     },
-    corFundo: {
+    corFundoAzul: {
         backgroundColor: cores.azulPrimarioClaro
+    },
+    corFundoBranco: {
+        backgroundColor: 'white'
     }
 })

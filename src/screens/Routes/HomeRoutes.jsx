@@ -6,6 +6,8 @@ import { cores } from '../../../globalStyles';
 import CadastrarHabilidade from '../CadastrarHabilidade/CadastrarHabilidade';
 import ListaHabilidades from '../ListaHabilidades/ListaHabilidades';
 import VinculaHabilidade from '../VinculaHabilidade/VinculaHabilidade';
+import ListaUsuarios from '../ListaUsuarios/ListaUsuarios';
+import PerfilUsuario from '../PerfilUsuario/PerfilUsuario';
 
 const drawerScreenOptions = {
     headerStyle: {
@@ -26,6 +28,8 @@ export default function HomeRoutes() {
             <Drawer.Screen name="Habilidades" component={ListaHabilidades} />
             <Drawer.Screen name="Cadastrar Habilidade" component={CadastrarHabilidade} />
             <Drawer.Screen name="Vincular Habilidade" component={VinculaHabilidade} />
+            <Drawer.Screen name="Usuarios" component={ListaUsuarios} />
+            <Drawer.Screen name="Perfil" component={PerfilUsuario} />
             
         </Drawer.Navigator>
     )
