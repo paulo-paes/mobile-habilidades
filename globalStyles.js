@@ -24,5 +24,11 @@ export const cores = {
     azulEscuro: '#020024',
     azulClaro: '#00d5ff',
     azulMedio: '#090979',
-    azulLink: '#0000EE'
+    azulLink: '#0000EE',
+    azulPrimario: '#0277bd',
+    azulPrimarioClaro: '#58a5f0',
+    azulPrimarioEscuro: '#004c8c',
+    verdeSecundario: '#00bfa5',
+    verdeSecundarioClaro: '#008e76',
+    verdeSecundarioEscuro: '#008e76',
 }

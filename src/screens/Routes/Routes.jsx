@@ -9,6 +9,8 @@ import EsqueciSenha from '../EsqueciSenha/EsqueciSenha';
 import ListaHabilidades from '../ListaHabilidades/ListaHabilidades';
 import VinculaHabilidade from '../VinculaHabilidade/VinculaHabilidade';
 import CadastrarHabilidade from '../CadastrarHabilidade/CadastrarHabilidade';
+import { cores } from '../../../globalStyles';
+import Home from '../../components/Home/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,9 +31,16 @@ export default function Routes() {
         <Stack.Screen 
           name="EsqueciSenha" 
           component={EsqueciSenha} 
-          options={{title: "Esqueci minha senha", headerShown: false}}
+          options={{title: "Esqueci minha senha", headerShown: true, headerStyle: {backgroundColor: cores.azulPrimario}, headerTintColor: '#FFF'}}
+          
         />
         <Stack.Screen 
+          name="Home" 
+          component={Home} 
+          options={{title: "Home", headerShown: false}}
+          
+        />
+        {/* <Stack.Screen 
           name="ListaHabilidades" 
           component={ListaHabilidades} 
           options={{title: "Habilidades", headerShown: false}}
@@ -45,7 +54,7 @@ export default function Routes() {
           name="CadastrarHabilidade" 
           component={CadastrarHabilidade} 
           options={{title: "Cadastrar Habilidade", headerShown: false}}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

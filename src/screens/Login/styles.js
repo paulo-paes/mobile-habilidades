@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyleSheet } from "react-native";
 import { cores } from '../../../globalStyles';
 
@@ -30,7 +29,6 @@ export default StyleSheet.create({
         width: '50%',
         height: 35,
         padding: 'auto',
-        backgroundColor: cores.azulMedio,
         borderRadius: 3
     },
     loginButtonText: {

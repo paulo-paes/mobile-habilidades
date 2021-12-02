@@ -6,7 +6,7 @@ import styles from './styles'
 
 export default function Login({navigation}) {
     return (
-        <View style={globalStyles.preencher}>
+        <View style={[globalStyles.preencher, styles.container]}>
             <View style={styles.login}>
                 <Text style={styles.loginText}>Login</Text>
                 <Text style={styles.loginInputLabel}>Email</Text>
@@ -22,7 +22,7 @@ export default function Login({navigation}) {
                     secureTextEntry={true}
                     
                 />
-                <Botao text='Entrar' acao={() => navigation.navigate('CadastrarHabilidade')}/>
+                <Botao text='Entrar' acao={() => navigation.navigate('Home')}/>
                 <View style={styles.links}>
                     <Text 
                         style={styles.linkCriarConta}

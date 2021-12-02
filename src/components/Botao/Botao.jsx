@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         width: '50%',
         height: 35,
         padding: 'auto',
-        backgroundColor: cores.azulMedio,
+        backgroundColor: cores.verdeSecundarioEscuro,
         borderRadius: 3
     },
     text: {
