@@ -21,12 +21,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     containerItem: {
-        backgroundColor: '#F4F0F4',
+        backgroundColor: 'white',
         width: '90%',
         height: 100,
         marginBottom: 10,
         padding: 10,
-        paddingLeft: 15
+        paddingLeft: 15,
+        elevation: 4,
+        borderRadius: 8
     },
     textNome: {
         fontSize: 20,

@@ -1,16 +1,11 @@
-import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
-import React from 'react'
+import React from 'react';
+import { createDrawerNavigator, DrawerItem, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+
+
 import { cores } from '../../../globalStyles';
-import CadastrarHabilidade from '../../screens/CadastrarHabilidade/CadastrarHabilidade';
-import ListaHabilidades from '../../screens/ListaHabilidades/ListaHabilidades';
-import VinculaHabilidade from '../../screens/VinculaHabilidade/VinculaHabilidade';
-
-import {
-    DrawerContentScrollView,
-    DrawerItemList,
-  } from '@react-navigation/drawer';
-
-const Drawer = createDrawerNavigator();
+import CadastrarHabilidade from '../CadastrarHabilidade/CadastrarHabilidade';
+import ListaHabilidades from '../ListaHabilidades/ListaHabilidades';
+import VinculaHabilidade from '../VinculaHabilidade/VinculaHabilidade';
 
 const drawerScreenOptions = {
     headerStyle: {
@@ -19,7 +14,9 @@ const drawerScreenOptions = {
     headerTintColor: '#FFF'
 }
 
-export default function Home({navigation}) {
+const Drawer = createDrawerNavigator();
+
+export default function HomeRoutes() {
     return (
         <Drawer.Navigator 
             initialRouteName="Habilidades" 
