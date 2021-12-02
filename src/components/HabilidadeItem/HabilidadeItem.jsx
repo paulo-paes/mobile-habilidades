@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     containerItem: {
         backgroundColor: 'white',
         width: '90%',
-        height: 100,
+        minHeight: 100,
         marginBottom: 10,
         padding: 10,
         paddingLeft: 15,

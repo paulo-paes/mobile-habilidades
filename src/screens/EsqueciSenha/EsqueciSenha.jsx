@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Text, TextInput, View } from 'react-native'
 import globalStyles from '../../../globalStyles';
 import Botao from '../../components/Botao/Botao';
+import ContainerInput from '../../components/ContainerInput/ContainerInput';
 import styles from './styles';
 
 export default function EsqueciSenha() {
@@ -11,7 +12,7 @@ export default function EsqueciSenha() {
     function renderEmail() {
         return (
             <>
-                <Text style={globalStyles.inputLabel} >Digite seu email</Text>
+                <Text style={styles.label} >Digite seu email</Text>
                 <TextInput style={globalStyles.input} placeholder='Email'/>
                 <Text style={globalStyles.inputLabel}>Um código será enviado ao seu email</Text>
                 <Botao acao={() => setExibir(exibir + 1)} style={styles.btnEnviar} text='Enviar' />
@@ -36,7 +37,7 @@ export default function EsqueciSenha() {
     function renderSenha(){
         return (
             <>
-                <Text style={globalStyles.inputLabel}>Digite sua nova senha</Text>
+                <Text  style={styles.label}>Digite sua nova senha</Text>
                 <TextInput style={globalStyles.input} placeholder='Senha'/>
                 <TextInput style={globalStyles.input} placeholder='Confirmar senha'/>
                 <Botao  
@@ -49,12 +50,11 @@ export default function EsqueciSenha() {
     }
 
     return (
-        <View style={[globalStyles.preencher, styles.container]}>
+        <ContainerInput background={true}>
             {
                 exibir === 0 ? renderEmail() :
                 exibir === 1 ? renderCodigo() : renderSenha()
             }
-        </View>
-        
+        </ContainerInput>
     )
 }

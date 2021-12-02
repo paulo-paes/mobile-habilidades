@@ -4,9 +4,8 @@ import { cores } from '../../../globalStyles';
 export default StyleSheet.create({
     login: {
         flex: 1,
-        marginBottom: '30%',
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: cores.azulPrimarioClaro,
+        paddingTop: 100
     },
     loginText: {
         fontSize: 24,
@@ -44,7 +43,8 @@ export default StyleSheet.create({
         marginTop: 10
     },
     linkCriarConta: {
-        color: cores.azulLink
+        color: cores.azulLink,
+        fontSize: 15
         
     },
     linkEsqueciSenha: {}

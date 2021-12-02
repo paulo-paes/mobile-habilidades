@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import globalStyles from '../../../globalStyles'
+import globalStyles, { cores } from '../../../globalStyles'
 
-export default function ContainerInput({children}) {
+export default function ContainerInput({children, background = false }) {
     return (
-        <View style={globalStyles.preencher}>
+        <View style={[globalStyles.preencher, background && styles.corFundo]}>
             <View style={styles.containerInput}>
                 {children}
             </View>
@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginTop: 30,
         paddingHorizontal: 5,
-        paddingVertical: 20
+        paddingVertical: 30
+    },
+    corFundo: {
+        backgroundColor: cores.azulPrimarioClaro
     }
 })

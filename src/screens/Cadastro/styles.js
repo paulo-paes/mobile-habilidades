@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
+import { cores } from "../../../globalStyles";
 
 export default StyleSheet.create({
     cadastro: {
-        marginTop: 30,
-        alignItems: 'center',
-        height: '80%'
+        backgroundColor: cores.azulPrimario, 
+        flex: 1
     },
     cadastroTitulo: {
         fontSize: 30

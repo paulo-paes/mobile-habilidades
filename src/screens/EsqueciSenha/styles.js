@@ -7,5 +7,8 @@ export default StyleSheet.create({
     },
     btnEnviar: {
         marginVertical: 10
+    },
+    label: {
+        fontSize: 20
     }
 })

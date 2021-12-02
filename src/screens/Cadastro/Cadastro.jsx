@@ -1,13 +1,13 @@
 import React from 'react'
 import { Text, TextInput, View } from 'react-native'
-import globalStyles from '../../../globalStyles'
+import globalStyles, { cores } from '../../../globalStyles'
 import Botao from '../../components/Botao/Botao'
+import ContainerInput from '../../components/ContainerInput/ContainerInput'
 import styles from './styles'
 
 export default function Cadastro({ navigation }) {
     return (
-        <View style={[globalStyles.preencher, styles.cadastro]}>
-            
+        <ContainerInput background={true}>
             <Text style={styles.cadastroTitulo}>Cadastro</Text>
             <Text style={[globalStyles.inputLabel, styles.cadastroLabel]}>Nome</Text>
             <TextInput style={globalStyles.input}/>
@@ -29,6 +29,6 @@ export default function Cadastro({ navigation }) {
             >
                     Voltar
             </Text>
-        </View>
+        </ContainerInput>            
     )
 }

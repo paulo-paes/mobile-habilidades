@@ -1,13 +1,15 @@
 import React from 'react'
 import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
-import globalStyles from '../../../globalStyles'
+
+
 import Botao from '../../components/Botao/Botao'
 import styles from './styles'
+import ContainerInput from '../../components/ContainerInput/ContainerInput'
 
 export default function Login({navigation}) {
     return (
-        <View style={[globalStyles.preencher, styles.container]}>
-            <View style={styles.login}>
+        <View style={styles.login}>
+            <ContainerInput background={true}>
                 <Text style={styles.loginText}>Login</Text>
                 <Text style={styles.loginInputLabel}>Email</Text>
                 <TextInput
@@ -35,7 +37,7 @@ export default function Login({navigation}) {
                         Esqueci minha senha
                     </Text>
                 </View>
-            </View>
+            </ContainerInput>
         </View>
     )
 }
