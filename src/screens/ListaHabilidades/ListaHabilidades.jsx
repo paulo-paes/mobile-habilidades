@@ -1,8 +1,9 @@
-import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import HabilidadeItem from '../../components/HabilidadeItem/HabilidadeItem'
+import InputPesquisa from '../../components/InputPesquisa/InputPesquisa'
 
-const habilidades = [
+const habilidadesData = [
     {
         "id": 1,
         "nome": "Angular",
@@ -76,6 +77,14 @@ const habilidades = [
         "deletedAt": null
     },
     {
+        "id": 15,
+        "nome": "React-Native",
+        "descricao": "O React é uma biblioteca JavaScript de código aberto com foco em criar interfaces de usuário em páginas web.",
+        "createdAt": "2021-11-26T14:14:25.000Z",
+        "updatedAt": "2021-11-26T14:14:25.000Z",
+        "deletedAt": null
+    },
+    {
         "id": 13,
         "nome": "Sequelize",
         "descricao": "",
@@ -102,12 +111,28 @@ const habilidades = [
 ]
 
 export default function ListaHabilidades() {
+
+    const [habilidades, setHabilidades] = useState(habilidadesData);
+    const [habilidadesFiltrada, setFiltrada] = useState(habilidadesData);
+
+    
+
+    function filtraHabilidades(text){
+        const reg = new RegExp(text, 'gi')
+        let habilidadesFiltrada = habilidades.filter(habilidade => {
+            console.log(habilidade)
+            return habilidade.nome.match(reg)
+        })
+        setFiltrada(habilidadesFiltrada)
+    }
+
     return (
-        <View>
-            <Text>Pesquisa</Text>
-            <View style={{marginBottom: 50}}>
+        <View style={styles.container}>
+            <InputPesquisa acao={filtraHabilidades} acaoBlank={() => setFiltrada(habilidades)}/>
+            <View style={styles.containerLista}>
                 <FlatList 
-                    data={habilidades}
+                    data={habilidadesFiltrada}
+                    onEndReachedThreshold={50}
                     renderItem={({item}) => <HabilidadeItem {...item}/>}
                     keyExtractor={item => item.id}
                 />
@@ -116,3 +141,14 @@ export default function ListaHabilidades() {
         </View>
     )
 }
+
+
+const styles = StyleSheet.create({
+    containerLista: {
+        height: 600,
+        paddingTop: 3
+    },
+    container: {
+        backgroundColor: '#FFF'
+    }
+})

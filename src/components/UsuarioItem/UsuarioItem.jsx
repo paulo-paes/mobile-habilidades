@@ -1,10 +1,25 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-export default function UsuarioItem({nome, cargo, habilidades}) {
-
+export default function UsuarioItem(props) {
+    
+    const navigation = useNavigation();
+    
+    const {id, nome, cargo, role, email, habilidades} = props;
+    const user = {
+        id,
+        nome,
+        cargo,
+        role,
+        email,
+        habilidades
+    }
     return (
-        <TouchableOpacity style={styles.containerUser}>
+        <TouchableOpacity 
+            style={styles.containerUser}
+            onPress={() => navigation.navigate('Perfil', user)}
+        >
             <View style={styles.wrapperDados}>
                 <View style={styles.dadosNome}>
                     <Text style={styles.textNome}>{nome}</Text>
