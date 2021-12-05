@@ -1,13 +1,35 @@
+import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-export default function HabilidadeItem({nome, descricao}) {
+export default function HabilidadeItem(props) {
+
+    const navigation = useNavigation();
+    const {nome, descricao, id, createdAt, deletedAt} = props;
+
+    
+
+    function handleClick(){
+        const hab = {
+            nome, 
+            descricao,
+            id,
+            createdAt,
+            deletedAt
+        }
+        navigation.navigate("Vincular Habilidade", hab)
+    }
+
     return (
         <View style={styles.container}>
-            <View style={styles.containerItem}>
+            <TouchableOpacity 
+                style={styles.containerItem}
+                onPress={handleClick}
+            >
                 <Text style={styles.textNome}>{nome}</Text>
                 <Text style={styles.textDescricao}>{descricao}</Text>
-            </View>
+            </TouchableOpacity>
         </View>
     )
 }

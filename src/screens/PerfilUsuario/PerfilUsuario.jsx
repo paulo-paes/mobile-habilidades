@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native'
-import ContainerInput from '../../components/ContainerInput/ContainerInput'
 import HeaderTabela from './HeaderTabela/HeaderTabela'
 import LinhaTabela from './LinhaTabela/LinhaTabela'
 
@@ -18,9 +17,6 @@ const API = 'http://localhost:4000/photo/'
 
 export default function PerfilUsuario(props) {
 
-    useEffect(() => {
-        props.route.params && console.log(props.route.params)
-    })
 
     return (
         <>

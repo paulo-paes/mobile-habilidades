@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
+import API from '../../api/service'
 import HabilidadeItem from '../../components/HabilidadeItem/HabilidadeItem'
 import InputPesquisa from '../../components/InputPesquisa/InputPesquisa'
+
 
 const habilidadesData = [
     {
@@ -112,15 +114,21 @@ const habilidadesData = [
 
 export default function ListaHabilidades() {
 
-    const [habilidades, setHabilidades] = useState(habilidadesData);
-    const [habilidadesFiltrada, setFiltrada] = useState(habilidadesData);
+    const [habilidades, setHabilidades] = useState([]);
+    const [habilidadesFiltrada, setFiltrada] = useState([]);
 
-    
+    useEffect(() => {
+
+        API.getHabilidades()
+            .then(res => {
+                setHabilidades(res.data)
+                setFiltrada(res.data)
+            }).catch(err => console.log(err))
+    }, [])
 
     function filtraHabilidades(text){
         const reg = new RegExp(text, 'gi')
         let habilidadesFiltrada = habilidades.filter(habilidade => {
-            console.log(habilidade)
             return habilidade.nome.match(reg)
         })
         setFiltrada(habilidadesFiltrada)
