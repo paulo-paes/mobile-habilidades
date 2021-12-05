@@ -9,6 +9,7 @@ import VinculaHabilidade from '../VinculaHabilidade/VinculaHabilidade';
 import ListaUsuarios from '../ListaUsuarios/ListaUsuarios';
 import PerfilUsuario from '../PerfilUsuario/PerfilUsuario';
 import UserContext from '../../context/UserContext';
+import DrawerContent from '../../components/DrawerContent/DrawerContent';
 
 const drawerScreenOptions = {
     headerStyle: {
@@ -21,38 +22,16 @@ const Drawer = createDrawerNavigator();
 
 export default function HomeRoutes() {
 
-    const { setAuthenticated, user, isGestor } = useContext(UserContext)
-
     return (
         <Drawer.Navigator 
             initialRouteName="Usuarios" 
             screenOptions={drawerScreenOptions}
-            drawerContent={(props) => <CustomDrawerContent {...props} logout={{setAuthenticated, user, isGestor}}/>}
+            drawerContent={(props) => <DrawerContent {...props} />}
         >
-            <Drawer.Screen name="Habilidades" component={ListaHabilidades} />
-            <Drawer.Screen name="Cadastrar Habilidade" component={CadastrarHabilidade} />
-            {/* <Drawer.Screen name="Vincular Habilidade" component={VinculaHabilidade} /> */}
-            <Drawer.Screen name="Usuarios" component={ListaUsuarios} />
             <Drawer.Screen name="Perfil" component={PerfilUsuario} />
-            
+            <Drawer.Screen name="Usuarios" component={ListaUsuarios} options={{title: 'Home'}}/>
+            <Drawer.Screen name="Habilidades" component={ListaHabilidades} />
+            <Drawer.Screen name="Cadastrar Habilidade" component={CadastrarHabilidade} />           
         </Drawer.Navigator>
     )
 }
-
-
-  
-function CustomDrawerContent(props) {
-    return (
-      <DrawerContentScrollView {...props}>
-        <DrawerItemList {...props} />
-        <DrawerItem
-            label="Logout"
-            onPress={() => {
-                props.logout.setAuthenticated(false);
-                props.logout.user = {};
-                props.logout.isGestor = false;
-            }}
-        />
-      </DrawerContentScrollView>
-    );
-  }

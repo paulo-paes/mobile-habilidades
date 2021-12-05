@@ -34,7 +34,7 @@ export default function Routes() {
             <Stack.Screen
               name="VinculaHabilidade"
               component={VinculaHabilidade}
-              options={{headerShown: true, title: 'Vincular Habilidade'}}
+              options={{headerShown: true, title: 'Vincular Habilidade', headerStyle: {backgroundColor: cores.azulPrimario}, headerTintColor: '#FFF'}}
             />
           </>
             ) : (
