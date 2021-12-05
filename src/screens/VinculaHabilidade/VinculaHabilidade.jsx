@@ -15,7 +15,6 @@ export default function VinculaHabilidade(props) {
    
 
     useEffect(() => {
-        // console.log(habilidade)
         setHabilidade(props.route.params)
     })
 

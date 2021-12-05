@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import globalStyles from '../../../globalStyles'
 import UsuarioItem from '../../components/UsuarioItem/UsuarioItem'
+import API from '../../api/service'
 
 const data = [
     {
@@ -166,10 +167,25 @@ const data = [
 ]
 
 export default function ListaUsuarios() {
+
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        getUsers()
+    }, [])
+
+    function getUsers(){
+        API.getUsers()
+            .then((res) => {
+                setUsers(res.data)
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <View style={[globalStyles.preencher, styles.containerLista]}>
             <FlatList 
-                data={data}
+                data={users}
                 renderItem={({item}) => <UsuarioItem {...item}/>}
                 keyExtractor={item => item.id}
             />

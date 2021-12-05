@@ -6,13 +6,14 @@ export default function UsuarioItem(props) {
     
     const navigation = useNavigation();
     
-    const {id, nome, cargo, role, email, habilidades} = props;
+    const {id, nome, cargo, role, email, photo_url, habilidades} = props;
     const user = {
         id,
         nome,
         cargo,
         role,
         email,
+        photo_url,
         habilidades
     }
     return (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native'
 import HeaderTabela from './HeaderTabela/HeaderTabela'
 import LinhaTabela from './LinhaTabela/LinhaTabela'
@@ -13,10 +13,16 @@ const user = {
     "habilidades": ['Angular',  'Docker', 'Sequelize', 'MySQL', 'MongoDB', 'React', 'React-native']
 }
 
-const API = 'http://localhost:4000/photo/'
+const API = 'http://192.168.1.105:4000/usuarios/photo/'
 
 export default function PerfilUsuario(props) {
 
+    const {email, nome, cargo, habilidades, photo_url} = props.route.params;
+
+    useEffect(() => {
+        console.log(props.route.params)
+       
+    })
 
     return (
         <>
@@ -25,18 +31,18 @@ export default function PerfilUsuario(props) {
                     <View style={styles.containerImagem}>
                         <Image
                             style={styles.imagemPerfil}
-                            source={require('../../../assets/avatar2.png')} 
+                            source={{uri: API + photo_url}} 
                         />
-                        <Text style={styles.textEmail}>{user.email}</Text>
+                        <Text style={styles.textEmail}>{email}</Text>
                     </View>
                     <View style={styles.wrapperNomeCargo}>
-                        <Text style={styles.textNome}>{user.nome}</Text>
-                        <Text style={styles.textCargo}>{user.cargo}</Text>
+                        <Text style={styles.textNome}>{nome}</Text>
+                        <Text style={styles.textCargo}>{cargo}</Text>
                     </View>
                 </View>
                 <View style={styles.containerHabilidades}>
                    <FlatList 
-                        data={user.habilidades}
+                        data={habilidades}
                         onEndReachedThreshold={50}
                         ListHeaderComponent={<HeaderTabela />}
                         renderItem={({item}) => <LinhaTabela habilidade={item} nivel={1}/>}
