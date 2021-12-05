@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native'
 import globalStyles from '../../../globalStyles'
 import UsuarioItem from '../../components/UsuarioItem/UsuarioItem'
 import API from '../../api/service'
+import InputPesquisa from '../../components/InputPesquisa/InputPesquisa'
 
 const data = [
     {
@@ -169,6 +170,7 @@ const data = [
 export default function ListaUsuarios() {
 
     const [users, setUsers] = useState([]);
+    const [usersFiltrados, setFiltrados] = useState([]);
 
     useEffect(() => {
         getUsers()
@@ -178,14 +180,24 @@ export default function ListaUsuarios() {
         API.getUsers()
             .then((res) => {
                 setUsers(res.data)
+                setFiltrados(res.data)
             })
             .catch(err => console.log(err))
     }
 
+    function filtraUsers(text){
+        const reg = new RegExp(text, 'gi')
+        let usersFiltrados = users.filter(user => {
+            return user.nome.match(reg)
+        })
+        setFiltrados(usersFiltrados)
+    }
+
     return (
         <View style={[globalStyles.preencher, styles.containerLista]}>
+            <InputPesquisa acao={filtraUsers} acaoBlank={() => setFiltrados(users)}/>
             <FlatList 
-                data={users}
+                data={usersFiltrados}
                 renderItem={({item}) => <UsuarioItem {...item}/>}
                 keyExtractor={item => item.id}
             />

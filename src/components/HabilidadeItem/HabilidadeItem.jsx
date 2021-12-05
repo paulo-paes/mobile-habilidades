@@ -18,7 +18,7 @@ export default function HabilidadeItem(props) {
             createdAt,
             deletedAt
         }
-        navigation.navigate("Vincular Habilidade", hab)
+        navigation.navigate("VinculaHabilidade", hab)
     }
 
     return (

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native'
 import HeaderTabela from './HeaderTabela/HeaderTabela'
 import LinhaTabela from './LinhaTabela/LinhaTabela'
+import UserContext from '../../context/UserContext'
 
 const user = {
     "id": 1,
@@ -17,12 +18,19 @@ const API = 'http://192.168.1.105:4000/usuarios/photo/'
 
 export default function PerfilUsuario(props) {
 
-    const {email, nome, cargo, habilidades, photo_url} = props.route.params;
+    let profileUser = props.route.params;
+    const {user} = useContext(UserContext)
 
-    useEffect(() => {
-        console.log(props.route.params)
-       
-    })
+
+    function getSourcePhoto(){
+        if(profileUser && profileUser.photo_url){
+            return {uri: API + profileUser.photo_url}
+        }else if(!profileUser && user.photo_url){
+            return {uri: API + user.photo_url}
+        }
+
+        return require('../../../assets/avatar2.png')
+    }
 
     return (
         <>
@@ -31,18 +39,18 @@ export default function PerfilUsuario(props) {
                     <View style={styles.containerImagem}>
                         <Image
                             style={styles.imagemPerfil}
-                            source={{uri: API + photo_url}} 
+                            source={getSourcePhoto()} 
                         />
-                        <Text style={styles.textEmail}>{email}</Text>
+                        <Text style={styles.textEmail}>{profileUser ? profileUser.email : user.email}</Text>
                     </View>
                     <View style={styles.wrapperNomeCargo}>
-                        <Text style={styles.textNome}>{nome}</Text>
-                        <Text style={styles.textCargo}>{cargo}</Text>
+                        <Text style={styles.textNome}>{profileUser ? profileUser.nome : user.nome}</Text>
+                        <Text style={styles.textCargo}>{profileUser ? profileUser.cargo : user.cargo}</Text>
                     </View>
                 </View>
                 <View style={styles.containerHabilidades}>
                    <FlatList 
-                        data={habilidades}
+                        data={profileUser ? profileUser.habilidades : user.habilidades}
                         onEndReachedThreshold={50}
                         ListHeaderComponent={<HeaderTabela />}
                         renderItem={({item}) => <LinhaTabela habilidade={item} nivel={1}/>}

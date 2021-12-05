@@ -6,7 +6,7 @@ import Botao from '../../components/Botao/Botao';
 import ContainerInput from '../../components/ContainerInput/ContainerInput';
 import styles from './styles';
 
-export default function EsqueciSenha() {
+export default function EsqueciSenha({navigation}) {
 
     const [exibir, setExibir] = useState(0);
     const [email, setEmail] = useState('');
@@ -56,8 +56,9 @@ export default function EsqueciSenha() {
                     placeholder='Senha'
                     value={senha}
                     onChangeText={senha => setSenha(senha)}
+                    secureTextEntry={true}
                 />
-                <TextInput style={globalStyles.input} placeholder='Confirmar senha'/>
+                <TextInput style={globalStyles.input} placeholder='Confirmar senha' secureTextEntry={true}/>
                 <Botao
                     acao={novaSenha}  
                     style={styles.btnEnviar} 
@@ -86,7 +87,9 @@ export default function EsqueciSenha() {
 
     async function novaSenha(){
         const resposta = await API.novaSenha({senha, codigo, email})
-        console.log(resposta)
+        if(resposta.status == 204){
+            navigation.navigate("Login")
+        }
     }
 
     return (
