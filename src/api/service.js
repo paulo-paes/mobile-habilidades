@@ -55,6 +55,10 @@ const API = {
 
     novaSenha(senha){
         return ApiInstance.post('/recuperarsenha/senha', senha)
+    },
+
+    getUserById(id){
+        return ApiInstance.get(`/usuarios/${id}/habilidades`)
     }
 
 }

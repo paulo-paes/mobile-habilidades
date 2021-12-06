@@ -11,12 +11,15 @@ export default function VinculaHabilidade(props) {
 
     const [nivel, setNivel] = useState(1);
     const [habilidade, setHabilidade] = useState(props.route.params);
-    const {user} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
    
 
     useEffect(() => {
-        setHabilidade(props.route.params)
-    })
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            setHabilidade(props.route.params)
+        })
+        return unsubscribe
+    }, [])
 
     function adicionaNivel(){
         if(nivel < 5) setNivel(nivel + 1)
@@ -33,7 +36,9 @@ export default function VinculaHabilidade(props) {
             id_habilidade: habilidade.id
         }
         API.vinculaHabilidade(user.id, userHab)
-            .then(console.log)
+            .then(() => {
+                props.navigation.navigate('Perfil')
+            })
             .catch(console.log)
     }
 

@@ -1,18 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import globalStyles from '../../../globalStyles'
 import API from '../../api/service'
 import Botao from '../../components/Botao/Botao'
 import ContainerInput from '../../components/ContainerInput/ContainerInput'
 
-export default function CadastrarHabilidade() {
+export default function CadastrarHabilidade({navigation}) {
 
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('blur', () => {
+            setNome('');
+            setDescricao('');
+        })
+        return unsubscribe
+    })
+
     function criarHabilidade(){
         API.postHabilidade({nome, descricao})
-            .then(res => console.log(res))
+            .then(res => {
+                navigation.navigate('Habilidades')
+            })
             .catch(err => console.log(err))
     }
 

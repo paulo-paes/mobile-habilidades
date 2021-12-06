@@ -167,13 +167,15 @@ const data = [
     }
 ]
 
-export default function ListaUsuarios() {
+export default function ListaUsuarios({navigation}) {
 
     const [users, setUsers] = useState([]);
     const [usersFiltrados, setFiltrados] = useState([]);
 
     useEffect(() => {
-        getUsers()
+        const unsubscribe = navigation.addListener('focus', getUsers)
+
+        return unsubscribe
     }, [])
 
     function getUsers(){

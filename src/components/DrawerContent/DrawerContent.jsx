@@ -10,7 +10,7 @@ const API = 'http://192.168.1.105:4000/usuarios/photo/'
 
 export default function DrawerContent(props) {
     const {navigation} = props;
-    const {user, setUser, setAuthenticated, setGestor} = useContext(UserContext);
+    const {user, isGestor, setUser, setAuthenticated, setGestor} = useContext(UserContext);
 
     function logout(){
         setUser({})
@@ -80,18 +80,23 @@ export default function DrawerContent(props) {
                             label="Habilidades"
                             onPress={() => navigation.navigate('Habilidades')}
                         />
-                        <DrawerItem
-                            icon={(color, size) => (
-                                <FontAwesome 
-                                    name="plus-square"
-                                    size={24}
-                                    color={color}
+                        {
+                            isGestor ? (
+                                <DrawerItem
+                                    icon={(color, size) => (
+                                        <FontAwesome 
+                                            name="plus-square"
+                                            size={24}
+                                            color={color}
+                                        />
+                                    )} 
+                                    labelStyle={styles.labelFontSize}
+                                    label="Criar Habilidade"
+                                    onPress={() => navigation.navigate('Cadastrar Habilidade')}
                                 />
-                            )} 
-                            labelStyle={styles.labelFontSize}
-                            label="Criar Habilidade"
-                            onPress={() => navigation.navigate('Cadastrar Habilidade')}
-                        />
+                            ) : null
+                        }
+                        
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>

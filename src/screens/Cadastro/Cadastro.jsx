@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Button, HelperText, TextInput, Title } from 'react-native-paper'
+import { cores } from '../../../globalStyles'
 
 import API from '../../api/service'
 import styles from './styles'

@@ -112,19 +112,23 @@ const habilidadesData = [
     }
 ]
 
-export default function ListaHabilidades() {
+export default function ListaHabilidades({navigation}) {
 
     const [habilidades, setHabilidades] = useState([]);
     const [habilidadesFiltrada, setFiltrada] = useState([]);
 
     useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', getHabilidades)
+        return unsubscribe
+    }, [])
 
+    function getHabilidades(){
         API.getHabilidades()
             .then(res => {
                 setHabilidades(res.data)
                 setFiltrada(res.data)
             }).catch(err => console.log(err))
-    }, [])
+    }
 
     function filtraHabilidades(text){
         const reg = new RegExp(text, 'gi')
