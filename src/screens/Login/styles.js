@@ -41,5 +41,9 @@ export default StyleSheet.create({
     },
     linkCriarConta: {
         justifyContent: 'flex-end'
+    },
+    error: {
+        paddingHorizontal: 5, 
+        fontSize: 14
     }
 })

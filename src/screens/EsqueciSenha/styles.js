@@ -23,5 +23,9 @@ export default StyleSheet.create({
     paragraph: {
         fontSize: 16,
         paddingVertical: 10
+    },
+    erro: {
+        fontSize: 14,
+        paddingHorizontal: 5
     }
 })

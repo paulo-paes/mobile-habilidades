@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import globalStyles, { cores } from '../../../globalStyles';
 import API from '../../api/service';
-import Botao from '../../components/Botao/Botao';
-import ContainerInput from '../../components/ContainerInput/ContainerInput';
 import styles from './styles';
-import { Button, Headline, Paragraph, TextInput } from 'react-native-paper';
+import { Button, Headline, HelperText, Paragraph, TextInput } from 'react-native-paper';
 
 
 export default function EsqueciSenha({navigation}) {
 
     const [exibir, setExibir] = useState(0);
     const [email, setEmail] = useState('');
+    const [erro, setErro] = useState({email: false, codigo: false, senha: false})
     const [codigo, setCodigo] = useState('');
     const [senha, setSenha] = useState('');
+    const [cSenha, setCSenha] = useState('');
 
     function renderEmail() {
         return (
             <>
-                <Headline  >Digite seu email</Headline>
+                <Headline>Digite seu email</Headline>
                 <TextInput 
                     mode='outlined' 
                     style={styles.input}
@@ -28,7 +28,15 @@ export default function EsqueciSenha({navigation}) {
                     value={email} 
                     onChangeText={e => setEmail(e)}
                     outlineColor={cores.preto}
+                    error={erro.email}
                 />
+
+                <HelperText
+                    type='error'
+                    visible={erro.email}
+                    style={styles.erro}
+                >Email não cadastrado</HelperText>
+
                 <Button
                     onPress={emailCadastrado}
                     mode='contained'
@@ -54,7 +62,14 @@ export default function EsqueciSenha({navigation}) {
                     value={codigo}
                     onChangeText={cod => setCodigo(cod)}
                     outlineColor={cores.preto}
+                    error={erro.codigo}
                 />
+
+                <HelperText
+                    type='error'
+                    visible={erro.codigo}
+                    style={styles.erro}
+                >Código Inválido</HelperText>
 
                 <Button
                     style={styles.btnEnviar}
@@ -80,6 +95,7 @@ export default function EsqueciSenha({navigation}) {
                     onChangeText={senha => setSenha(senha)}
                     outlineColor={cores.preto}
                     secureTextEntry={true}
+                    error={senhasDiferem()}
                 />
                 <TextInput 
                     mode='outlined' 
@@ -88,40 +104,77 @@ export default function EsqueciSenha({navigation}) {
                     activeOutlineColor={cores.azulPrimario} 
                     outlineColor={cores.preto}
                     label='Confirmar senha' 
-                    secureTextEntry={true}/>
-               
+                    secureTextEntry={true}
+                    value={cSenha}
+                    onChangeText={cSenha => setCSenha(cSenha)}
+                />
+
+                <HelperText
+                    type='error'
+                    visible={senhasDiferem()}
+                    style={styles.erro}
+                >As senhas diferem</HelperText>
+
+            
                 <Button
                     onPress={novaSenha}
                     mode='contained'
                     color={cores.azulPrimarioEscuro}
                     style={styles.btnEnviar}
                 >Enviar nova senha</Button>
+
+                <HelperText
+                    type='error'
+                    visible={erro.senha}
+                    style={styles.erro}
+                >Erro ao processar</HelperText>
             </>
             
         )
     }
 
     async function emailCadastrado(){
-        const resposta = await API.emailCadastrado(email);
-        if(resposta.data.emailCadastrado){
-            setExibir(exibir + 1)
-            API.recuperarSenha({email})
-        }
-            
+        await API.emailCadastrado(email)
+            .then(res => {
+                if(res.data.emailCadastrado){
+                    setExibir(exibir + 1)
+                    API.recuperarSenha({email})
+                }else{
+                    setErro({...erro, email: true})
+                }
+            })
+            .catch(() => setErro({...erro, email: true})) 
+        
     }
 
     async function codigoCorreto(){
-        const resposta = await API.codigoCorreto({codigo, email})
-        if(resposta.status == 204){
-            setExibir(exibir + 1)
-        }
+        await API.codigoCorreto({codigo, email})
+            .then(res => {
+                if(res.status == 204){
+                    setExibir(exibir + 1)
+                }else{
+                    setErro({...erro, codigo: true})
+                }
+            })
+            .catch(() => setErro({...erro, codigo: true}))
+        
     }
 
     async function novaSenha(){
-        const resposta = await API.novaSenha({senha, codigo, email})
-        if(resposta.status == 204){
-            navigation.navigate("Login")
+        await API.novaSenha({senha, codigo, email})
+            .then(res => {
+                if(res.status == 204){
+                    navigation.navigate("Login")
+                }
+            })
+            .catch(() => setErro({...erro, senha: true}))
+    }
+
+    const senhasDiferem = () => {
+        if(senha && cSenha){
+            return senha != cSenha
         }
+        return false
     }
 
     return (

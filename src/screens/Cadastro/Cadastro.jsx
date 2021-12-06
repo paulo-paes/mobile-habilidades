@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
-import { Button, TextInput, Title } from 'react-native-paper'
-import globalStyles, { cores } from '../../../globalStyles'
+import { View } from 'react-native'
+import { Button, HelperText, TextInput, Title } from 'react-native-paper'
+
 import API from '../../api/service'
-import Botao from '../../components/Botao/Botao'
-import ContainerInput from '../../components/ContainerInput/ContainerInput'
 import styles from './styles'
 
-export default function Cadastro({ navigation }) {
+export default function Cadastro() {
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
@@ -26,7 +24,8 @@ export default function Cadastro({ navigation }) {
             .catch(console.log)
     }
 
-
+    const validEmail = () => email && email.includes('@')
+    const validPass = () => senha && senha.length >= 8
 
     return (
             <View style={styles.cadastro}>
@@ -41,15 +40,23 @@ export default function Cadastro({ navigation }) {
                     outlineColor={cores.preto}
                 />
 
+                <HelperText visible={false}></HelperText>
+
                 <TextInput 
                     style={styles.input}
                     onChangeText={email => setEmail(email)}
                     label='Email'
                     mode='outlined'
+                    error={email && !validEmail()}
                     selectionColor={cores.azulPrimario}
                     activeOutlineColor={cores.azulPrimario}
                     outlineColor={cores.preto}
                 />
+
+                <HelperText
+                    type='error'
+                    visible={email && !validEmail()}
+                >Email inválido</HelperText>
 
 
                 <TextInput 
@@ -62,18 +69,26 @@ export default function Cadastro({ navigation }) {
                     outlineColor={cores.preto}
                 />
 
+                <HelperText visible={false}></HelperText>
+
 
                 <TextInput 
                     secureTextEntry={true} 
                     style={styles.input}
                     onChangeText={senha => setSenha(senha)}
                     label='Senha'
+                    error={senha && !validPass()}
                     placeholder='*****'
                     mode='outlined'
                     selectionColor={cores.azulPrimario}
                     activeOutlineColor={cores.azulPrimario}
                     outlineColor={cores.preto}
                 />
+
+                <HelperText
+                    type='error'
+                    visible={senha && !validPass()}
+                >A senha deve conter no mínimo 8 caracteres</HelperText>
 
                 <Button
                     mode='contained'

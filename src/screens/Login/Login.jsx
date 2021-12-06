@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
-import { Button, TextInput, Title } from 'react-native-paper'
+import { Button, HelperText, TextInput, Title } from 'react-native-paper'
 
 
 
@@ -13,11 +13,22 @@ export default function Login({navigation}) {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const {setUser, setAuthenticated, setGestor} = useContext(UserContext)
+    const [erro, setErro] = useState(false);
+    const {setUser, setAuthenticated, setGestor} = useContext(UserContext);
+
+    useEffect(() => limpaCampos, [])
+
+
+    function limpaCampos(){
+        setEmail('');
+        setSenha('');
+        setErro(false);
+    }
 
     function login(){
         API.login({email, senha})
             .then((res) => {
+                setErro(false)
                 API.setAuthToken(res.headers['authorization'])
                 setUser(res.data)
                 setAuthenticated(true)
@@ -26,6 +37,7 @@ export default function Login({navigation}) {
             })
             .catch(err =>{
                 console.log("erro")
+                setErro(true)
             })
     }
 
@@ -41,6 +53,7 @@ export default function Login({navigation}) {
                     selectionColor={cores.azulPrimario}
                     activeOutlineColor={cores.azulPrimario}
                     outlineColor={cores.preto}
+                    error={erro}
                 />
                 <TextInput
                     style={styles.loginInput}
@@ -52,7 +65,15 @@ export default function Login({navigation}) {
                     selectionColor={cores.azulPrimario}
                     activeOutlineColor={cores.azulPrimario}
                     outlineColor={cores.preto}
+                    error={erro}
                 />
+                <HelperText
+                    type='error'
+                    visible={erro}
+                    style={styles.error}
+                >
+                    Email e/ou senha inválidos
+                </HelperText>
                 <Button
                     mode='contained'
                     color={cores.azulPrimarioEscuro}
@@ -62,8 +83,12 @@ export default function Login({navigation}) {
                     Entrar
                 </Button>
 
+
                 <Button
-                    onPress={() => navigation.navigate('EsqueciSenha')}
+                    onPress={() => {
+                        navigation.navigate('EsqueciSenha')
+                        limpaCampos()
+                    }}
                     color={cores.azulPrimario}
                     
                     compact={true}
@@ -74,7 +99,10 @@ export default function Login({navigation}) {
                 </Button>
                 
                 <Button 
-                    onPress={() => navigation.navigate('Cadastro')}
+                    onPress={() => {
+                        navigation.navigate('Cadastro')
+                        limpaCampos()
+                    }}
                     color={cores.azulPrimario}
                     style={styles.linkCriarConta}
                     compact={true}
