@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { TextInput, Button, Title, Headline, Subheading } from 'react-native-paper'
 
 import Botao from '../../components/Botao/Botao'
 import ContainerInput from '../../components/ContainerInput/ContainerInput'
 import UserContext from '../../context/UserContext';
 import API from '../../api/service'
+import { cores } from '../../../globalStyles'
+import { AntDesign } from '@expo/vector-icons'; 
 
 
 export default function VinculaHabilidade(props) {
 
     const [nivel, setNivel] = useState(1);
     const [habilidade, setHabilidade] = useState(props.route.params);
-    const {user, setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
    
 
     useEffect(() => {
@@ -45,24 +48,36 @@ export default function VinculaHabilidade(props) {
     return (
         <ContainerInput>
             <View style={styles.containerInput}>
-                <Text style={styles.label}>Habilidade</Text>
-                <TextInput style={styles.input} editable={false} value={habilidade.nome}/>
+                <TextInput 
+                    style={styles.input} 
+                    disable={true}
+                    editable={false}
+                    value={habilidade.nome}
+                    mode='flat'
+                />
             </View>
             <View style={styles.containerInput}>
-                <Text style={styles.label}>Nível</Text>
+                <Subheading style={styles.label}>Nível</Subheading>
                 <View style={styles.container}>
                     <View style={styles.containerBotoes}>
-                        <TouchableOpacity onPress={removeNivel} style={styles.botaoMenos}>
-                            <Text style={styles.textBotao}> - </Text>
+                        <TouchableOpacity onPress={removeNivel}>
+                            <AntDesign name="minussquare" size={24} color="black" />
                         </TouchableOpacity>
-                        <Text>{nivel}</Text>
-                        <TouchableOpacity onPress={adicionaNivel} style={styles.botaoMais}>
-                            <Text style={styles.textBotao}> + </Text>
+       
+                        <Subheading>{nivel}</Subheading>
+     
+                        <TouchableOpacity onPress={adicionaNivel}>
+                            <AntDesign name="plussquare" size={24} color="black" />
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
-            <Botao style={styles.botao} text='Adicionar' acao={vinculaHabilidade}/>
+            <Button
+                mode='contained'
+                color={cores.azulPrimarioEscuro}
+                style={styles.botao}
+                onPress={vinculaHabilidade}
+            >Adicionar</Button>
         </ContainerInput>
     )
 }
@@ -74,17 +89,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     label: {
-        fontSize: 16,
-        marginBottom: 5,
-        fontWeight: 'bold',
-        alignSelf: 'flex-start',
-        marginLeft: 35
+        textAlign: 'left',
+        width: '78%',
+        fontWeight: 'bold'
     },
     input: {
         height: 40,
         width: '80%',
         marginBottom: 15,
-        borderWidth: 1,
         padding: 10
     },
     container: {
@@ -114,6 +126,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     botao: {
-        margin: 15
+        marginVertical: 15,
+        width: '80%'
     }
 })

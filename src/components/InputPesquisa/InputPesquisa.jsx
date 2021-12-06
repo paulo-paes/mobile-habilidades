@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { Searchbar } from 'react-native-paper';
 import { cores } from '../../../globalStyles';
 
 
@@ -18,16 +19,12 @@ export default function InputPesquisa({acao, acaoBlank}) {
 
     return (
         <View style={styles.container}>
-            <TextInput
-                style={styles.pesquisar} 
+            <Searchbar
                 placeholder="Pesquisar"
                 value={filtro}
                 onChangeText={handlerInput}
-
+                onIconPress={() => acao(filtro)}
             />
-            <TouchableOpacity style={styles.botaoPesquisar} onPress={() => acao(filtro)}>
-                <Text style={styles.textBotao}>Pesquisar</Text>
-            </TouchableOpacity>
         </View>
     )
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
-import globalStyles from '../../../globalStyles'
+import { View, Text, StyleSheet } from 'react-native'
+import { Button, TextInput } from 'react-native-paper'
+import { cores } from '../../../globalStyles'
 import API from '../../api/service'
 import Botao from '../../components/Botao/Botao'
 import ContainerInput from '../../components/ContainerInput/ContainerInput'
@@ -29,25 +30,42 @@ export default function CadastrarHabilidade({navigation}) {
     return (
         <ContainerInput>
             <View style={styles.viewInput}>
-                <Text style={styles.label}>Nome</Text>
+                {/* <Text style={styles.label}>Nome</Text> */}
                 <TextInput 
                     style={styles.input}
                     value={nome}
                     onChangeText={nome => setNome(nome)}
+                    label="Nome"
+                    mode="outlined"
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
                 />
             </View>
             <View style={styles.viewInput}>
-                <Text style={styles.label}>Descrição</Text>
+                {/* <Text style={styles.label}>Descrição</Text> */}
                 <TextInput
-                    style={[styles.input, styles.inputMultine]} 
+                    style={styles.inputMultine} 
+                    label="Descrição"
                     multiline={true}
                     maxLength={100}
                     numberOfLines={4}
                     value={descricao}
                     onChangeText={desc => setDescricao(desc)}
+                    mode="outlined"
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
+                    numberOfLines={4}
                 />
             </View>
-            <Botao style={styles.botao} text='Criar Habilidade' acao={criarHabilidade}/>
+            {/* <Botao style={styles.botao} text='Criar Habilidade' acao={criarHabilidade}/> */}
+            <Button
+                mode='contained'
+                color={cores.azulPrimarioEscuro}
+                style={styles.botao}
+                onPress={criarHabilidade}
+            >Criar Habilidade</Button>
         </ContainerInput>
             
            
@@ -60,7 +78,7 @@ const styles = StyleSheet.create({
     viewInput: {
         marginTop: 10,
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     label: {
         fontSize: 16,
@@ -70,17 +88,20 @@ const styles = StyleSheet.create({
         marginLeft: 35
     },
     input: {
-        height: 40,
+
         width: '80%',
         marginBottom: 15,
-        borderWidth: 1,
-        padding: 10
+        backgroundColor: cores.branco,
     },
     inputMultine: {
-        height: 80,
-        textAlignVertical: 'top'
+        height: 90,
+        textAlignVertical: 'top',
+        width: '80%',
+        paddingTop: 3,
+        backgroundColor: cores.branco
     },
     botao: {
-        marginTop: 10
+        marginTop: 15,
+        width: '80%'
     }
 })

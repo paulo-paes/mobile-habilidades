@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from 'react'
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native'
+import { View, Text,  StyleSheet, FlatList } from 'react-native'
 import HeaderTabela from './HeaderTabela/HeaderTabela'
 import LinhaTabela from './LinhaTabela/LinhaTabela'
 import UserContext from '../../context/UserContext'
 import API from '../../api/service'
 import { useState } from 'react/cjs/react.development'
+import { Avatar, Caption, Paragraph, Subheading, Title } from 'react-native-paper'
+import { Feather } from '@expo/vector-icons'; 
+import { cores } from '../../../globalStyles'
 
 const user = {
     "id": 1,
@@ -68,16 +71,27 @@ export default function PerfilUsuario(props) {
             <View style={styles.wrapper}>
                 <View style={styles.containerDados}>
                     <View style={styles.containerImagem}>
-                        <Image
+                        {/* <Image
                             style={styles.imagemPerfil}
                             source={getSourcePhoto()} 
+                        /> */}
+                        <Avatar.Image 
+                            source={getSourcePhoto()}
+                            size={128}
                         />
-                        <Text style={styles.textEmail}>{userPerfil.email}</Text>
+                        
+                        <View style={styles.wrapperNomeCargo}>
+                            <Title style={styles.textNome}>{userPerfil.nome}</Title>
+                            <Caption style={styles.textCargo}>{userPerfil.cargo}</Caption>
+                        </View>
                     </View>
-                    <View style={styles.wrapperNomeCargo}>
-                        <Text style={styles.textNome}>{userPerfil.nome}</Text>
-                        <Text style={styles.textCargo}>{userPerfil.cargo}</Text>
+                    <View style={styles.containerMail}>
+                            <View style={styles.mailIcon}>
+                                <Feather name="mail" size={24} color='black' style={{ textAlignVertical: 'bottom'}}/>
+                            </View>
+                            <Paragraph style={styles.textEmail}>{userPerfil.email}</Paragraph>
                     </View>
+                    
                 </View>
                 <View style={styles.containerHabilidades}>
                    <FlatList 
@@ -101,8 +115,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     containerDados: {
-        flexDirection: 'row',
-        minHeight: 195,
+        flexDirection: 'column',
+        
+
     },
     containerHabilidades: {
         borderTopWidth: 1,
@@ -110,6 +125,9 @@ const styles = StyleSheet.create({
         paddingTop: 15,
         marginBottom: 30,
         maxHeight: 400,
+    },
+    containerImagem: {
+        flexDirection: 'row'
     },
     imagemPerfil: {
         width: 128,
@@ -127,10 +145,25 @@ const styles = StyleSheet.create({
     },
     textEmail: {
         fontSize: 16,
-        marginTop: 18
+        paddingLeft: 15,
     },
     wrapperNomeCargo: {
-        marginLeft: -15,
-        marginTop: 30
+        paddingTop: 15,
+        paddingLeft: 15
+    },
+    containerMail: {
+        flexDirection: 'row',
+        textAlign: 'center',
+        paddingTop: 15,
+        paddingLeft: 10,
+        marginBottom: 20
+    },
+    mailIcon: {
+        paddingRight: 15,
+        borderRightWidth: 1,
+        borderColor: cores.preto,
+    },
+    mail: {
+        paddingLeft: 15
     }
 });
