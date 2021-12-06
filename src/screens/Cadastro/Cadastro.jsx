@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Text, TextInput, View } from 'react-native'
+import { Text, View } from 'react-native'
+import { Button, TextInput, Title } from 'react-native-paper'
 import globalStyles, { cores } from '../../../globalStyles'
-import API, { ApiInstance } from '../../api/service'
+import API from '../../api/service'
 import Botao from '../../components/Botao/Botao'
 import ContainerInput from '../../components/ContainerInput/ContainerInput'
 import styles from './styles'
@@ -28,41 +29,62 @@ export default function Cadastro({ navigation }) {
 
 
     return (
-        <ContainerInput background={true}>
-            <Text style={styles.cadastroTitulo}>Cadastro</Text>
-            <Text style={[globalStyles.inputLabel, styles.cadastroLabel]}>Nome</Text>
-            <TextInput 
-                style={globalStyles.input}
-                onChangeText={nome => setNome(nome)}
-            />
+            <View style={styles.cadastro}>
+                <Title style={styles.cadastroTitulo}>Cadastro</Title>
+                <TextInput 
+                    style={styles.input}
+                    onChangeText={nome => setNome(nome)}
+                    label='Nome'
+                    mode='outlined'
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
+                />
 
-            <Text style={[globalStyles.inputLabel, styles.cadastroLabel]}>Email</Text>
-            <TextInput 
-                style={globalStyles.input}
-                onChangeText={email => setEmail(email)}
-            />
+                <TextInput 
+                    style={styles.input}
+                    onChangeText={email => setEmail(email)}
+                    label='Email'
+                    mode='outlined'
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
+                />
 
-            <Text style={[globalStyles.inputLabel, styles.cadastroLabel]}>Cargo</Text>
-            <TextInput 
-                style={globalStyles.input}
-                onChangeText={cargo => setCargo(cargo)}
-            />
 
-            <Text style={[globalStyles.inputLabel, styles.cadastroLabel]}>Senha</Text>
-            <TextInput 
-                secureTextEntry={true} 
-                style={globalStyles.input}
-                onChangeText={senha => setSenha(senha)}
-            />
+                <TextInput 
+                    style={styles.input}
+                    onChangeText={cargo => setCargo(cargo)}
+                    label='Cargo'
+                    mode='outlined'
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
+                />
 
-            <Botao style={styles.cadastroBotao} text='Criar Conta' acao={criarConta}/>
 
-            <Text 
-                style={globalStyles.link}
-                onPress={() => navigation.navigate('Login')}
-            >
-                    Voltar
-            </Text>
-        </ContainerInput>            
+                <TextInput 
+                    secureTextEntry={true} 
+                    style={styles.input}
+                    onChangeText={senha => setSenha(senha)}
+                    label='Senha'
+                    placeholder='*****'
+                    mode='outlined'
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
+                />
+
+                <Button
+                    mode='contained'
+                    color={cores.azulPrimarioEscuro}
+                    style={styles.cadastroBotao}
+                    onPress={criarConta}
+                >
+                    Criar Conta
+                </Button>
+
+
+            </View>        
     )
 }

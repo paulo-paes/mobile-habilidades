@@ -4,7 +4,9 @@ import { cores } from '../../../globalStyles';
 export default StyleSheet.create({
     login: {
         flex: 1,
-        backgroundColor: cores.azulPrimarioClaro,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        
         paddingTop: 100
     },
     loginText: {
@@ -13,11 +15,10 @@ export default StyleSheet.create({
         marginBottom: 10
     },
     loginInput: {
-        height: 40,
         width: '80%',
         margin: 12,
-        borderWidth: 1,
-        padding: 10,
+        color: cores.azulClaro,
+        backgroundColor: cores.branco
     },
     loginInputLabel: {
         fontSize: 16,
@@ -25,10 +26,8 @@ export default StyleSheet.create({
         marginRight: 260
     },
     loginButton: {
-        width: '50%',
-        height: 35,
-        padding: 'auto',
-        borderRadius: 3
+        width: '80%',
+        marginTop: 10
     },
     loginButtonText: {
         textAlign: 'center',
@@ -36,16 +35,11 @@ export default StyleSheet.create({
         fontSize: 18,
         color: 'white'
     },
-    links: {
-        flexDirection: 'row',
-        width: '80%',
-        justifyContent: 'space-around',
-        marginTop: 10
-    },
-    linkCriarConta: {
-        color: cores.azulLink,
-        fontSize: 15
+    link: {
+        margin: 10,
         
     },
-    linkEsqueciSenha: {}
+    linkCriarConta: {
+        justifyContent: 'flex-end'
+    }
 })

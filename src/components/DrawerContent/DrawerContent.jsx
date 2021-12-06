@@ -6,6 +6,8 @@ import { Avatar,Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch
 import {Ionicons, AntDesign, FontAwesome} from '@expo/vector-icons'
 import UserContext from '../../context/UserContext';
 
+const API = 'http://192.168.1.105:4000/usuarios/photo/'
+
 export default function DrawerContent(props) {
     const {navigation} = props;
     const {user, setUser, setAuthenticated, setGestor} = useContext(UserContext);

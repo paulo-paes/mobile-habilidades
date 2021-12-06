@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Text, TextInput, View } from 'react-native'
-import globalStyles from '../../../globalStyles';
+import { Text, View } from 'react-native'
+import globalStyles, { cores } from '../../../globalStyles';
 import API from '../../api/service';
 import Botao from '../../components/Botao/Botao';
 import ContainerInput from '../../components/ContainerInput/ContainerInput';
 import styles from './styles';
+import { Button, Headline, Paragraph, TextInput } from 'react-native-paper';
+
 
 export default function EsqueciSenha({navigation}) {
 
@@ -16,14 +18,24 @@ export default function EsqueciSenha({navigation}) {
     function renderEmail() {
         return (
             <>
-                <Text style={styles.label} >Digite seu email</Text>
+                <Headline  >Digite seu email</Headline>
                 <TextInput 
-                    style={globalStyles.input} 
-                    placeholder='Email' value={email} 
+                    mode='outlined' 
+                    style={styles.input}
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario} 
+                    label='Email' 
+                    value={email} 
                     onChangeText={e => setEmail(e)}
+                    outlineColor={cores.preto}
                 />
-                <Text style={globalStyles.inputLabel}>Um código será enviado ao seu email</Text>
-                <Botao acao={emailCadastrado} style={styles.btnEnviar} text='Enviar' />
+                <Button
+                    onPress={emailCadastrado}
+                    mode='contained'
+                    color={cores.azulPrimarioEscuro}
+                    style={styles.btnEnviar}
+                >Enviar</Button>
+                <Paragraph style={styles.paragraph}>Um código será enviado ao seu email</Paragraph>
             </>
         )
     }
@@ -31,18 +43,25 @@ export default function EsqueciSenha({navigation}) {
     function renderCodigo(){
         return (
             <>
-                <Text style={globalStyles.inputLabel} >Um código foi enviado ao seu email</Text>
-                <TextInput 
-                    style={globalStyles.input} 
+                <Paragraph style={globalStyles.inputLabel} >Um código foi enviado ao seu email</Paragraph>
+                <TextInput
+                    mode='outlined' 
+                    style={styles.input}
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    label='Código'
                     placeholder='Digite o código'
                     value={codigo}
                     onChangeText={cod => setCodigo(cod)}
+                    outlineColor={cores.preto}
                 />
-                <Botao 
-                    acao={codigoCorreto} 
-                    style={styles.btnEnviar} 
-                    text='Confirmar código' 
-                />
+
+                <Button
+                    style={styles.btnEnviar}
+                    mode='contained'
+                    onPress={codigoCorreto}
+                    color={cores.azulPrimarioEscuro}
+                >Confirmar Código</Button>
             </>
         )
     }
@@ -50,20 +69,33 @@ export default function EsqueciSenha({navigation}) {
     function renderSenha(){
         return (
             <>
-                <Text  style={styles.label}>Digite sua nova senha</Text>
+                <Headline  style={styles.label}>Digite sua nova senha</Headline>
                 <TextInput 
-                    style={globalStyles.input} 
-                    placeholder='Senha'
+                    mode='outlined' 
+                    style={styles.input}
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario} 
+                    label='Senha'
                     value={senha}
                     onChangeText={senha => setSenha(senha)}
+                    outlineColor={cores.preto}
                     secureTextEntry={true}
                 />
-                <TextInput style={globalStyles.input} placeholder='Confirmar senha' secureTextEntry={true}/>
-                <Botao
-                    acao={novaSenha}  
-                    style={styles.btnEnviar} 
-                    text='Enviar nova senha' 
-                />
+                <TextInput 
+                    mode='outlined' 
+                    style={styles.input}
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario} 
+                    outlineColor={cores.preto}
+                    label='Confirmar senha' 
+                    secureTextEntry={true}/>
+               
+                <Button
+                    onPress={novaSenha}
+                    mode='contained'
+                    color={cores.azulPrimarioEscuro}
+                    style={styles.btnEnviar}
+                >Enviar nova senha</Button>
             </>
             
         )
@@ -93,11 +125,11 @@ export default function EsqueciSenha({navigation}) {
     }
 
     return (
-        <ContainerInput background={true}>
+        <View style={styles.container}>
             {
                 exibir === 0 ? renderEmail() :
                 exibir === 1 ? renderCodigo() : renderSenha()
             }
-        </ContainerInput>
+        </View>
     )
 }

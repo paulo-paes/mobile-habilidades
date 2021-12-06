@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react'
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
+import { Button, TextInput, Title } from 'react-native-paper'
 
 
-import Botao from '../../components/Botao/Botao'
-import styles from './styles'
-import ContainerInput from '../../components/ContainerInput/ContainerInput'
+
 import API from '../../api/service'
 import UserContext from '../../context/UserContext'
+import { cores } from '../../../globalStyles'
+import styles from './styles'
 
 export default function Login({navigation}) {
 
@@ -24,46 +25,62 @@ export default function Login({navigation}) {
                 navigation.navigate('Home')
             })
             .catch(err =>{
-                // console.log(err)
                 console.log("erro")
             })
     }
 
     return (
         <View style={styles.login}>
-            <ContainerInput background={true}>
-                <Text style={styles.loginText}>Login</Text>
-                <Text style={styles.loginInputLabel}>Email</Text>
+                <Title style={styles.loginText}>Login</Title>
                 <TextInput
                     style={styles.loginInput}
-                    placeholder='Email'
+                    label='Email'
                     value={email}
                     onChangeText={email => setEmail(email)}
-                    
+                    mode='outlined'
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
                 />
-                <Text style={styles.loginInputLabel}>Senha</Text>
                 <TextInput
                     style={styles.loginInput}
-                    placeholder='Senha'
+                    label='Senha'
                     value={senha}
                     onChangeText={senha => setSenha(senha)}
                     secureTextEntry={true}
-                    
+                    mode='outlined'
+                    selectionColor={cores.azulPrimario}
+                    activeOutlineColor={cores.azulPrimario}
+                    outlineColor={cores.preto}
                 />
-                <Botao text='Entrar' acao={login}/>
-                <View style={styles.links}>
-                    <Text 
-                        style={styles.linkCriarConta}
-                        onPress={() => navigation.navigate('Cadastro')}
-                    >Criar Conta</Text>
-                    <Text 
-                        style={styles.linkCriarConta}
-                        onPress={() => navigation.navigate("EsqueciSenha")}
-                    >
-                        Esqueci minha senha
-                    </Text>
-                </View>
-            </ContainerInput>
+                <Button
+                    mode='contained'
+                    color={cores.azulPrimarioEscuro}
+                    onPress={login}
+                    style={styles.loginButton}
+                >
+                    Entrar
+                </Button>
+
+                <Button
+                    onPress={() => navigation.navigate('EsqueciSenha')}
+                    color={cores.azulPrimario}
+                    
+                    compact={true}
+                    style={styles.link}
+                    
+                >
+                    Esqueci minha senha
+                </Button>
+                
+                <Button 
+                    onPress={() => navigation.navigate('Cadastro')}
+                    color={cores.azulPrimario}
+                    style={styles.linkCriarConta}
+                    compact={true}
+                >
+                    Criar Conta
+                </Button>
         </View>
     )
 }

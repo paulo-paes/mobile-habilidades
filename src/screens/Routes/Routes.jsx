@@ -21,7 +21,7 @@ export default function Routes() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: cores.azulPrimario}, headerTintColor: '#FFF'}}>
 
         {
           authenticated ? (
@@ -34,7 +34,7 @@ export default function Routes() {
             <Stack.Screen
               name="VinculaHabilidade"
               component={VinculaHabilidade}
-              options={{headerShown: true, title: 'Vincular Habilidade', headerStyle: {backgroundColor: cores.azulPrimario}, headerTintColor: '#FFF'}}
+              options={{ title: 'Vincular Habilidade'}}
             />
           </>
             ) : (
@@ -42,17 +42,16 @@ export default function Routes() {
             <Stack.Screen
               name="Login"
               component={Login}
-              options={{ title: 'Login', headerShown: false }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen 
               name="Cadastro" 
               component={Cadastro} 
-              options={{headerShown: false}}
             />
             <Stack.Screen 
               name="EsqueciSenha" 
               component={EsqueciSenha} 
-              options={{title: "Esqueci minha senha", headerShown: true, headerStyle: {backgroundColor: cores.azulPrimario}, headerTintColor: '#FFF'}}
+              options={{title: "Esqueci minha senha"}}
               
             />
           </>)

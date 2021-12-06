@@ -31,4 +31,6 @@ export const cores = {
     verdeSecundario: '#00bfa5',
     verdeSecundarioClaro: '#008e76',
     verdeSecundarioEscuro: '#008e76',
+    branco: '#FFF',
+    preto: '#000'
 }
