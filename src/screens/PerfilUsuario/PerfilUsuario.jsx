@@ -69,8 +69,7 @@ export default function PerfilUsuario(props) {
                     <View style={styles.containerImagem}>
                         <Photo 
                             size={128}
-                            user={profileUser}
-                            alterUser={user}
+                            user={userPerfil}
                         />
                         <View style={styles.wrapperNomeCargo}>
                             <Title style={styles.textNome}>{userPerfil.nome}</Title>

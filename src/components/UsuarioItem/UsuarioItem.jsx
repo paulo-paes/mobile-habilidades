@@ -26,7 +26,7 @@ export default function UsuarioItem(props) {
             <View style={styles.wrapperDados}>
                 <Photo 
                     size={64}
-                    user={{photo_url}}
+                    user={{photo_url, id}}
                 />
                 <View style={styles.dadosNome}>
                     <Text style={styles.textNome}>{nome}</Text>
