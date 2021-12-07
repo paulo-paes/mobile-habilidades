@@ -5,8 +5,9 @@ import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navi
 import { Avatar,Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch} from 'react-native-paper'
 import {Ionicons, AntDesign, FontAwesome} from '@expo/vector-icons'
 import UserContext from '../../context/UserContext';
+import API from '../../api/service';
 
-const API = 'http://192.168.1.105:4000/usuarios/photo/'
+const APIPHOTO = 'http://192.168.1.105:4000/usuarios/photo/'
 
 export default function DrawerContent(props) {
     const {navigation} = props;
@@ -16,11 +17,12 @@ export default function DrawerContent(props) {
         setUser({})
         setAuthenticated(false)
         setGestor(false)
+        API.deleteToken()
     }
 
     function getSourcePhoto(){
         if(user.photo_url){
-            return {uri: API + user.photo_url}
+            return {uri: APIPHOTO + user.photo_url}
         }
 
         return require('../../../assets/avatar2.png')

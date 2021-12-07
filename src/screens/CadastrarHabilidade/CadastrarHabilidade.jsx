@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 import { cores } from '../../../globalStyles'
 import API from '../../api/service'
+import Alerta from '../../components/Alerta/Alerta'
 import Botao from '../../components/Botao/Botao'
 import ContainerInput from '../../components/ContainerInput/ContainerInput'
 
@@ -10,6 +11,7 @@ export default function CadastrarHabilidade({navigation}) {
 
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
+    const [alerta, setAlerta] = useState(false);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('blur', () => {
@@ -20,9 +22,11 @@ export default function CadastrarHabilidade({navigation}) {
     })
 
     function criarHabilidade(){
+        // setAlerta(true)
+        // navigation.navigate('Habilidades')
         API.postHabilidade({nome, descricao})
             .then(res => {
-                navigation.navigate('Habilidades')
+                navigation.navigate('Habilidades', {criada: true})
             })
             .catch(err => console.log(err))
     }
@@ -30,7 +34,7 @@ export default function CadastrarHabilidade({navigation}) {
     return (
         <ContainerInput>
             <View style={styles.viewInput}>
-                {/* <Text style={styles.label}>Nome</Text> */}
+           
                 <TextInput 
                     style={styles.input}
                     value={nome}
@@ -43,9 +47,9 @@ export default function CadastrarHabilidade({navigation}) {
                 />
             </View>
             <View style={styles.viewInput}>
-                {/* <Text style={styles.label}>Descrição</Text> */}
                 <TextInput
                     style={styles.inputMultine} 
+                    placeholder="Descrição"
                     label="Descrição"
                     multiline={true}
                     maxLength={100}
@@ -59,7 +63,6 @@ export default function CadastrarHabilidade({navigation}) {
                     numberOfLines={4}
                 />
             </View>
-            {/* <Botao style={styles.botao} text='Criar Habilidade' acao={criarHabilidade}/> */}
             <Button
                 mode='contained'
                 color={cores.azulPrimarioEscuro}
@@ -67,9 +70,6 @@ export default function CadastrarHabilidade({navigation}) {
                 onPress={criarHabilidade}
             >Criar Habilidade</Button>
         </ContainerInput>
-            
-           
-        
     )
 }
 

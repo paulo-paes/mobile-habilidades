@@ -40,7 +40,7 @@ export default function VinculaHabilidade(props) {
         }
         API.vinculaHabilidade(user.id, userHab)
             .then(() => {
-                props.navigation.navigate('Perfil')
+                props.navigation.navigate('Perfil', {vinculada: true})
             })
             .catch(console.log)
     }

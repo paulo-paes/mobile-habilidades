@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import API from '../../api/service'
+import Alerta from '../../components/Alerta/Alerta'
 import HabilidadeItem from '../../components/HabilidadeItem/HabilidadeItem'
 import InputPesquisa from '../../components/InputPesquisa/InputPesquisa'
 
@@ -112,10 +113,11 @@ const habilidadesData = [
     }
 ]
 
-export default function ListaHabilidades({navigation}) {
+export default function ListaHabilidades({navigation, route}) {
 
     const [habilidades, setHabilidades] = useState([]);
     const [habilidadesFiltrada, setFiltrada] = useState([]);
+    const [alerta, setAlerta] = useState(false)
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', getHabilidades)
@@ -123,6 +125,9 @@ export default function ListaHabilidades({navigation}) {
     }, [])
 
     function getHabilidades(){
+        if(route.params && route.params.criada){
+            setAlerta(true)
+        }
         API.getHabilidades()
             .then(res => {
                 setHabilidades(res.data)
@@ -150,6 +155,13 @@ export default function ListaHabilidades({navigation}) {
                 />
 
             </View>
+            <Alerta 
+                text="Habilidade criada com sucesso!"
+                duration={2000}
+                visible={alerta}
+                setVisible={setAlerta}
+
+            />
         </View>
     )
 }

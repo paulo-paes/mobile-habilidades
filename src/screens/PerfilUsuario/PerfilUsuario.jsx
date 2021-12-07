@@ -8,6 +8,7 @@ import { useState } from 'react/cjs/react.development'
 import { Avatar, Caption, Paragraph, Subheading, Title } from 'react-native-paper'
 import { Feather } from '@expo/vector-icons'; 
 import { cores } from '../../../globalStyles'
+import Alerta from '../../components/Alerta/Alerta'
 
 const user = {
     "id": 1,
@@ -36,6 +37,7 @@ export default function PerfilUsuario(props) {
     const {user} = useContext(UserContext);
 
     const [userPerfil, setUserPerfil] = useState(userPerfilMock);
+    const [alerta, setAlerta] = useState(false);
 
     useEffect(() => {
         const unsubscribe = props.navigation.addListener('focus', getUser)
@@ -54,14 +56,16 @@ export default function PerfilUsuario(props) {
     }
 
     function getUser(){
-        if(profileUser){
-            console.log(profileUser)
+        if(profileUser && profileUser.id){
             API.getUserById(profileUser.id)
                 .then(res => setUserPerfil(res.data))
                 .catch(console.log)
         }else{
             API.getUserById(user.id)
-                .then(res => setUserPerfil(res.data))
+                .then(res => {
+                    setUserPerfil(res.data)
+                    setAlerta(true)
+                })
                 .catch(console.log)
         }
     }
@@ -71,10 +75,6 @@ export default function PerfilUsuario(props) {
             <View style={styles.wrapper}>
                 <View style={styles.containerDados}>
                     <View style={styles.containerImagem}>
-                        {/* <Image
-                            style={styles.imagemPerfil}
-                            source={getSourcePhoto()} 
-                        /> */}
                         <Avatar.Image 
                             source={getSourcePhoto()}
                             size={128}
@@ -102,6 +102,12 @@ export default function PerfilUsuario(props) {
                         keyExtractor={(item, index) => index} 
                    />
                 </View>
+                <Alerta 
+                    text='Habilidade vinculada'
+                    duration={3000}
+                    visible={alerta}
+                    setVisible={setAlerta}
+                />
             </View>
         </>
     )
