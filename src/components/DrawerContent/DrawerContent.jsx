@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native';
 
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
@@ -6,22 +6,17 @@ import { Avatar,Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch
 import {Ionicons, AntDesign, FontAwesome} from '@expo/vector-icons'
 import UserContext from '../../context/UserContext';
 import API from '../../api/service';
+import { useState } from 'react/cjs/react.development';
 
 const APIPHOTO = 'http://192.168.1.105:4000/usuarios/photo/'
 
 export default function DrawerContent(props) {
     const {navigation} = props;
-    const {user, isGestor, setUser, setAuthenticated, setGestor} = useContext(UserContext);
+    const {user, isGestor, logoutUser} = useContext(UserContext);
 
-    function logout(){
-        setUser({})
-        setAuthenticated(false)
-        setGestor(false)
-        API.deleteToken()
-    }
 
     function getSourcePhoto(){
-        if(user.photo_url){
+        if(user && user.photo_url){
             return {uri: APIPHOTO + user.photo_url}
         }
 
@@ -39,8 +34,8 @@ export default function DrawerContent(props) {
                                 size={50}
                             />
                             <View style={styles.wrapperName}>
-                                <Title style={styles.title}>{user.nome}</Title>
-                                <Caption style={styles.caption}>{user.cargo}</Caption>
+                                <Title style={styles.title}>{user && user.nome}</Title>
+                                <Caption style={styles.caption}>{user && user.cargo}</Caption>
                             </View>
                         </View>
                     </View>
@@ -113,7 +108,7 @@ export default function DrawerContent(props) {
                     )} 
                     labelStyle={styles.labelFontSize}
                     label="Sair"
-                    onPress={logout}
+                    onPress={logoutUser}
                 />
             </Drawer.Section>
         </View>

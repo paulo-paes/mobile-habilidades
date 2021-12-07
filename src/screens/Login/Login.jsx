@@ -14,7 +14,7 @@ export default function Login({navigation}) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [erro, setErro] = useState(false);
-    const {setUser, setAuthenticated, setGestor} = useContext(UserContext);
+    const {loginUser} = useContext(UserContext);
 
     useEffect(() => limpaCampos, [])
 
@@ -30,9 +30,7 @@ export default function Login({navigation}) {
             .then((res) => {
                 setErro(false)
                 API.setAuthToken(res.headers['authorization'])
-                setUser(res.data)
-                setAuthenticated(true)
-                setGestor(res.data.role === 'gestor')
+                loginUser(res.data, res.headers['authorization'])
                 navigation.navigate('Home')
             })
             .catch(err =>{
