@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import API from '../../api/service'
 import Alerta from '../../components/Alerta/Alerta'
 import HabilidadeItem from '../../components/HabilidadeItem/HabilidadeItem'
 import InputPesquisa from '../../components/InputPesquisa/InputPesquisa'
+import { Banner, Button } from 'react-native-paper'
+import { Entypo } from '@expo/vector-icons'; 
+import { cores } from '../../../globalStyles'
 
 
 const habilidadesData = [
@@ -117,12 +120,32 @@ export default function ListaHabilidades({navigation, route}) {
 
     const [habilidades, setHabilidades] = useState([]);
     const [habilidadesFiltrada, setFiltrada] = useState([]);
+    const [filterText, setFilterText] = useState('');
+    const [search, setSearch] = useState(false);
     const [alerta, setAlerta] = useState(false)
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', getHabilidades)
         return unsubscribe
     }, [])
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Button 
+                    icon={() => (
+                        <Entypo name="magnifying-glass" size={24} color={'white'} />
+                    )} 
+                    onPress={() => {
+                        setSearch(true)
+                    }}
+                    compact={true}
+                    color={cores.azulPrimarioClaro}
+                    style={{marginRight: 5}}                    
+                />
+            )
+        })
+    }, [navigation])
 
     function getHabilidades(){
         if(route.params && route.params.criada){
@@ -145,8 +168,33 @@ export default function ListaHabilidades({navigation, route}) {
 
     return (
         <View style={styles.container}>
-            <InputPesquisa acao={filtraHabilidades} acaoBlank={() => setFiltrada(habilidades)}/>
-            <View style={styles.containerLista}>
+            <Banner
+                visible={search}
+                actions={[
+                    {
+                        label: 'Pesquisar',
+                        onPress: () => filtraHabilidades(filterText),
+                        color: cores.azulPrimarioEscuro
+                    },
+                    {
+                        label: "Fechar",
+                        onPress: () => {
+                            setSearch(false)
+                            setFilterText('')
+                            setFiltrada(habilidades)
+                        },
+                        color: cores.azulPrimarioEscuro
+                    },
+                ]}
+            >
+                <InputPesquisa 
+                    acao={filtraHabilidades} 
+                    acaoBlank={() => setFiltrada(habilidades)}
+                    filter={filterText}
+                    setFilter={setFilterText}
+                />
+            </Banner>
+            
                 <FlatList 
                     data={habilidadesFiltrada}
                     onEndReachedThreshold={50}
@@ -154,25 +202,24 @@ export default function ListaHabilidades({navigation, route}) {
                     keyExtractor={item => item.id}
                 />
 
-            </View>
+    
+        
             <Alerta 
                 text="Habilidade criada com sucesso!"
                 duration={2000}
                 visible={alerta}
                 setVisible={setAlerta}
-
             />
+            
+            
         </View>
     )
 }
 
 
 const styles = StyleSheet.create({
-    containerLista: {
-        height: 600,
-        paddingTop: 3
-    },
     container: {
-        backgroundColor: '#FFF'
+        backgroundColor: cores.branco,
+        flex: 1,
     }
 })

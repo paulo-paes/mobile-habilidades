@@ -4,16 +4,17 @@ import { Searchbar } from 'react-native-paper';
 import { cores } from '../../../globalStyles';
 
 
-export default function InputPesquisa({acao, acaoBlank}) {
+export default function InputPesquisa({acao, acaoBlank, filter, setFilter}) {
 
-    const [filtro, setFiltro] = useState('');
+    // const [filtro, setFiltro] = useState('');
 
     function handlerInput(text){
         if(text.length > 0){
-            setFiltro(text)
+            // setFiltro(text)
+            setFilter(text)
         }else{
             acaoBlank()
-            setFiltro('')
+            setFilter('')
         }
     }
 
@@ -21,9 +22,9 @@ export default function InputPesquisa({acao, acaoBlank}) {
         <View style={styles.container}>
             <Searchbar
                 placeholder="Pesquisar"
-                value={filtro}
+                value={filter}
                 onChangeText={handlerInput}
-                onIconPress={() => acao(filtro)}
+                onIconPress={() => acao(filter)}
             />
         </View>
     )
@@ -31,44 +32,6 @@ export default function InputPesquisa({acao, acaoBlank}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FFF',
-        marginVertical: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 6,
-        width: '80%',
-        height: 43,
-        alignSelf: 'center',
-        borderRadius: 10        
-    },
-    pesquisar: {
-        width: '100%',
-        alignSelf: 'center',
-        borderRadius: 10,
-        borderWidth: 1,
-        paddingLeft: 10,
-        paddingVertical: 6,
-        paddingRight: 79,
-        borderTopEndRadius: 10,
-        borderBottomEndRadius: 10,
-        elevation: 2000
-    },
-    botaoPesquisar: {
-        marginLeft: -75,
-        borderLeftWidth: 1,
-        height: '95%',
-        paddingVertical: 6,
-        paddingHorizontal: 5,
-        borderTopEndRadius: 10,
-        borderBottomEndRadius: 10,
-        backgroundColor: cores.verdeSecundarioEscuro
-
-    },
-    textBotao: {
-        textAlign: 'center',
-        height: 30,
-        paddingTop: 2.5,
-        color: '#FFF'
+        width: 350
     }
 })

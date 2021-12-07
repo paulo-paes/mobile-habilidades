@@ -40,13 +40,14 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        marginTop: 5
     },
     containerItem: {
         backgroundColor: 'white',
         width: '90%',
         minHeight: 100,
-        marginBottom: 10,
+        marginBottom: 5,
         padding: 10,
         paddingLeft: 15,
         elevation: 4,

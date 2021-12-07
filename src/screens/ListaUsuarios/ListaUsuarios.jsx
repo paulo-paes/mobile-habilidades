@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
-import globalStyles from '../../../globalStyles'
+import globalStyles, { cores } from '../../../globalStyles'
 import UsuarioItem from '../../components/UsuarioItem/UsuarioItem'
 import API from '../../api/service'
 import InputPesquisa from '../../components/InputPesquisa/InputPesquisa'
+import { Banner, Button, Searchbar } from 'react-native-paper'
+import { Entypo } from '@expo/vector-icons'; 
 
 const data = [
     {
@@ -171,12 +173,30 @@ export default function ListaUsuarios({navigation}) {
 
     const [users, setUsers] = useState([]);
     const [usersFiltrados, setFiltrados] = useState([]);
+    const [filterText, setFilterText] = useState('');
+    const [search, setSearch] = useState(false);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', getUsers)
 
         return unsubscribe
     }, [])
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Button 
+                    icon={() => (
+                        <Entypo name="magnifying-glass" size={24} color={'white'} />
+                    )} 
+                    onPress={() => setSearch(true)}
+                    compact={true}
+                    color={cores.azulPrimarioClaro}
+                    style={{marginRight: 5}}                    
+                />
+            )
+        })
+    }, [navigation])
 
     function getUsers(){
         API.getUsers()
@@ -195,9 +215,37 @@ export default function ListaUsuarios({navigation}) {
         setFiltrados(usersFiltrados)
     }
 
+    function closeSearch(){
+        setSearch(false)
+        setFilterText('')
+        setFiltrados(users)
+    }
+
     return (
         <View style={[globalStyles.preencher, styles.containerLista]}>
-            <InputPesquisa acao={filtraUsers} acaoBlank={() => setFiltrados(users)}/>
+            <Banner
+                visible={search}
+                actions={[
+                    {
+                        label: 'Pesquisar',
+                        onPress: () => filtraUsers(filterText),
+                        color: cores.azulPrimarioEscuro
+                    },
+                    {
+                        label: "Fechar",
+                        onPress: closeSearch,
+                        color: cores.azulPrimarioEscuro
+                    },
+                ]}
+            >
+                <InputPesquisa 
+                    acao={filtraUsers} 
+                    acaoBlank={() => setFiltrados(users)}
+                    filter={filterText}
+                    setFilter={setFilterText}
+                />
+
+            </Banner>
             <FlatList 
                 data={usersFiltrados}
                 renderItem={({item}) => <UsuarioItem {...item}/>}

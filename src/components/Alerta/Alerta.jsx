@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Snackbar, Button } from 'react-native-paper'
+import { View, StyleSheet } from 'react-native'
+import { Snackbar } from 'react-native-paper'
 
 export default function Alerta({text, visible, setVisible, duration = 7000}) {
 

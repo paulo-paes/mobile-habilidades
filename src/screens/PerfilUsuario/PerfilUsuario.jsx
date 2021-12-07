@@ -64,7 +64,7 @@ export default function PerfilUsuario(props) {
             API.getUserById(user.id)
                 .then(res => {
                     setUserPerfil(res.data)
-                    setAlerta(true)
+                    if(props.route.params && props.route.params.vinculada) setAlerta(true)
                 })
                 .catch(console.log)
         }
@@ -102,12 +102,14 @@ export default function PerfilUsuario(props) {
                         keyExtractor={(item, index) => index} 
                    />
                 </View>
+                
                 <Alerta 
                     text='Habilidade vinculada'
                     duration={3000}
                     visible={alerta}
                     setVisible={setAlerta}
                 />
+                
             </View>
         </>
     )
@@ -117,7 +119,7 @@ export default function PerfilUsuario(props) {
 const styles = StyleSheet.create({
     wrapper: {
         padding: 20,
-        backgroundColor: '#FFF',
+        backgroundColor: cores.branco,
         flex: 1,
     },
     containerDados: {
@@ -129,8 +131,8 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: 'grey',
         paddingTop: 15,
-        marginBottom: 30,
-        maxHeight: 400,
+        marginBottom: 10,
+        maxHeight: 420,
     },
     containerImagem: {
         flexDirection: 'row'
