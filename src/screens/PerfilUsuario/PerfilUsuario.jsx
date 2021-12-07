@@ -9,6 +9,7 @@ import { Avatar, Caption, Paragraph, Subheading, Title } from 'react-native-pape
 import { Feather } from '@expo/vector-icons'; 
 import { cores } from '../../../globalStyles'
 import Alerta from '../../components/Alerta/Alerta'
+import Photo from '../../components/Photo/Photo'
 
 const user = {
     "id": 1,
@@ -45,15 +46,6 @@ export default function PerfilUsuario(props) {
     }, [setUserPerfil, profileUser])
 
 
-    function getSourcePhoto(){
-        if(profileUser && profileUser.photo_url){
-            return {uri: APIPHOTO + profileUser.photo_url}
-        }else if(!profileUser && user.photo_url){
-            return {uri: APIPHOTO + user.photo_url}
-        }
-
-        return require('../../../assets/avatar2.png')
-    }
 
     function getUser(){
         if(profileUser && profileUser.id){
@@ -75,11 +67,11 @@ export default function PerfilUsuario(props) {
             <View style={styles.wrapper}>
                 <View style={styles.containerDados}>
                     <View style={styles.containerImagem}>
-                        <Avatar.Image 
-                            source={getSourcePhoto()}
+                        <Photo 
                             size={128}
+                            user={profileUser}
+                            alterUser={user}
                         />
-                        
                         <View style={styles.wrapperNomeCargo}>
                             <Title style={styles.textNome}>{userPerfil.nome}</Title>
                             <Caption style={styles.textCargo}>{userPerfil.cargo}</Caption>

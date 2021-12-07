@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react'
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { Avatar,Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch} from 'react-native-paper'
 import {Ionicons, AntDesign, FontAwesome} from '@expo/vector-icons'
 import UserContext from '../../context/UserContext';
-import API from '../../api/service';
-import { useState } from 'react/cjs/react.development';
+import Photo from '../Photo/Photo';
+
 
 const APIPHOTO = 'http://192.168.1.105:4000/usuarios/photo/'
 
@@ -15,23 +15,15 @@ export default function DrawerContent(props) {
     const {user, isGestor, logoutUser} = useContext(UserContext);
 
 
-    function getSourcePhoto(){
-        if(user && user.photo_url){
-            return {uri: APIPHOTO + user.photo_url}
-        }
-
-        return require('../../../assets/avatar2.png')
-    }
-
     return (
         <View style={styles.drawerContent}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
                         <View style={styles.wrapperInfo}>
-                            <Avatar.Image 
-                                source={getSourcePhoto()}
+                            <Photo 
                                 size={50}
+                                user={user}
                             />
                             <View style={styles.wrapperName}>
                                 <Title style={styles.title}>{user && user.nome}</Title>

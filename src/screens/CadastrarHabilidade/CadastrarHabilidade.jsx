@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Alert } from 'react-native'
-import { Button, TextInput } from 'react-native-paper'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { Button, HelperText, TextInput } from 'react-native-paper'
 import { cores } from '../../../globalStyles'
 import API from '../../api/service'
-import Alerta from '../../components/Alerta/Alerta'
-import Botao from '../../components/Botao/Botao'
 import ContainerInput from '../../components/ContainerInput/ContainerInput'
 
 export default function CadastrarHabilidade({navigation}) {
 
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [alerta, setAlerta] = useState(false);
+    const [erro, setErro] = useState(false);
+    const desc = useRef(null)
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('blur', () => {
@@ -22,13 +21,16 @@ export default function CadastrarHabilidade({navigation}) {
     })
 
     function criarHabilidade(){
-        // setAlerta(true)
-        // navigation.navigate('Habilidades')
-        API.postHabilidade({nome, descricao})
-            .then(res => {
-                navigation.navigate('Habilidades', {criada: true})
-            })
-            .catch(err => console.log(err))
+        if(nome.length > 0){
+            API.postHabilidade({nome, descricao})
+                .then(res => {
+                    setErro(false)
+                    navigation.navigate('Habilidades', {criada: true})
+                })
+                .catch(err => console.log(err))
+        }else{
+            setErro(true)
+        }
     }
 
     return (
@@ -44,11 +46,17 @@ export default function CadastrarHabilidade({navigation}) {
                     selectionColor={cores.azulPrimario}
                     activeOutlineColor={cores.azulPrimario}
                     outlineColor={cores.preto}
+                    error={erro}
                 />
+                <HelperText 
+                    type='error'
+                    visible={erro}
+                >Por favor, digite um nome para a habilidade.</HelperText>
             </View>
             <View style={styles.viewInput}>
                 <TextInput
-                    style={styles.inputMultine} 
+                    style={styles.inputMultine}
+                    ref={desc} 
                     placeholder="Descrição"
                     label="Descrição"
                     multiline={true}

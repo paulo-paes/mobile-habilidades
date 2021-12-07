@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { Avatar } from 'react-native-paper';
+import Photo from '../Photo/Photo';
 
 export default function UsuarioItem(props) {
     
@@ -18,22 +18,15 @@ export default function UsuarioItem(props) {
         habilidades
     }
 
-    function getSourcePhoto(){
-        if(photo_url){
-            return {uri: `http://192.168.1.105:4000/usuarios/photo/${photo_url}`}
-        }
-
-        return require('../../../assets/avatar2.png')
-    }
-
     return (
         <TouchableOpacity 
             style={styles.containerUser}
             onPress={() => navigation.navigate('Perfil', user)}
         >
             <View style={styles.wrapperDados}>
-                <Avatar.Image
-                    source={getSourcePhoto()}
+                <Photo 
+                    size={64}
+                    user={{photo_url}}
                 />
                 <View style={styles.dadosNome}>
                     <Text style={styles.textNome}>{nome}</Text>
