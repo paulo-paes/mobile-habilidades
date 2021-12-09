@@ -4,12 +4,17 @@ import { cores } from "../../../globalStyles";
 export default StyleSheet.create({
     cadastro: {
         flex: 1,
-        paddingTop: 50,
         width: '100%',
+        paddingTop: 15,
         alignItems: 'center',
         backgroundColor: cores.branco
         
     },
+    keyboardView: {
+        flex: 1, backgroundColor: 'red', width: '100%',
+        alignItems: 'center'
+    },
+
     input: {
         width: '80%',
         margin: 5,

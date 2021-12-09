@@ -6,7 +6,7 @@ import InputPesquisa from '../InputPesquisa/InputPesquisa'
 import { Entypo } from '@expo/vector-icons'; 
 import { useState } from 'react/cjs/react.development'
 
-export default function SearchBanner({filtro, setFiltro, acao, acaoBlank, acaoClose, visible, navigation}) {
+export default function SearchBanner({filtro, setFiltro, acao, acaoBlank, navigation}) {
 
     const [search, setSearch] = useState(false);
 
