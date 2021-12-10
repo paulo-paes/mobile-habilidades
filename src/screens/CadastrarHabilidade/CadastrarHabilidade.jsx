@@ -25,7 +25,10 @@ export default function CadastrarHabilidade({navigation}) {
             API.postHabilidade({nome, descricao})
                 .then(res => {
                     setErro(false)
-                    navigation.navigate('Habilidades', {criada: true})
+                    setAlerta(true)
+                    setTimeout(() => {
+                        navigation.navigate('Habilidades')
+                    }, 2000)
                 })
                 .catch(err => console.log(err))
         }else{

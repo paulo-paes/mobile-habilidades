@@ -6,11 +6,8 @@ import { cores } from '../../../globalStyles';
 
 export default function InputPesquisa({acao, acaoBlank, filter, setFilter}) {
 
-    // const [filtro, setFiltro] = useState('');
-
     function handlerInput(text){
         if(text.length > 0){
-            // setFiltro(text)
             setFilter(text)
         }else{
             acaoBlank()

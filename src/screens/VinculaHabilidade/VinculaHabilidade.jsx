@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { TextInput, Button, Title, Headline, Subheading } from 'react-native-paper'
+import { TextInput, Button, Title, Headline, Subheading, HelperText } from 'react-native-paper'
 
 import Botao from '../../components/Botao/Botao'
 import ContainerInput from '../../components/ContainerInput/ContainerInput'
@@ -14,6 +14,7 @@ export default function VinculaHabilidade(props) {
 
     const [nivel, setNivel] = useState(1);
     const [habilidade, setHabilidade] = useState(props.route.params);
+    const [alerta, setAlerta] = useState(false)
     const {user} = useContext(UserContext)
    
 
@@ -42,7 +43,7 @@ export default function VinculaHabilidade(props) {
             .then(() => {
                 props.navigation.navigate('Perfil', {vinculada: true})
             })
-            .catch(console.log)
+            .catch(() => setAlerta(true))
     }
 
     return (
@@ -78,6 +79,10 @@ export default function VinculaHabilidade(props) {
                 style={styles.botao}
                 onPress={vinculaHabilidade}
             >Adicionar</Button>
+            <HelperText 
+                type='error'
+                visible={alerta}
+            >Você já possui esta habilidade cadastrada</HelperText>
         </ContainerInput>
     )
 }
